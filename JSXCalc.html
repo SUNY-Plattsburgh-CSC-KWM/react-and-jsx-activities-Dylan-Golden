@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSX Calculator</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="react/react.js"></script>
+  <script src="react/react-dom.js"></script>
+  <script src="react/babel.js"></script>
+
+  <script type="text/babel">
+    function Calculator({ initialValue }) {
+      const [value, setValue] = React.useState(initialValue);
+      const [amount, setAmount] = React.useState(1);
+
+      const numericAmount = Number(amount) || 0;
+
+      return (
+        <main>
+          <h2>Calculator</h2>
+          <p>Current value: {value}</p>
+
+          <label>
+            Amount:
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              style={{ marginLeft: "0.5rem" }}
+            />
+          </label>
+
+          <div style={{ marginTop: "0.5rem" }}>
+            <button onClick={() => setValue((v) => v + numericAmount)}>
+              +
+            </button>
+            <button onClick={() => setValue((v) => v - numericAmount)}>
+              −
+            </button>
+            <button onClick={() => setValue((v) => v * numericAmount)}>
+              ×
+            </button>
+            <button
+              onClick={() => {
+                if (numericAmount !== 0) {
+                  setValue((v) => v / numericAmount);
+                }
+              }}
+            >
+              ÷
+            </button>
+            <button onClick={() => setValue(initialValue)}>
+              Clear
+            </button>
+          </div>
+        </main>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Calculator initialValue={0} />
+  
+        </div>
+      );
+    }
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+      document.getElementById("root")
+    );
+  </script>
+</body>
+</html>
